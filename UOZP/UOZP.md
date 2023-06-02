@@ -110,6 +110,18 @@ def silhouette(el, clusters, data):
     return s_i
 ```
 
+### DBSCAN
+Clustering algoritem, kii se uporablja, ko se ena gruča "zavija" okoli druge. Predstavljaj si eno majhno gručo in eno okoli v obliki krožnice.
+
+Algoritem:
+- določimo "core points" - točke, ki imajo v svoji bližini (nekem radiju) vsaj N drugih točk
+- naključnemu core pointu določimo 1. cluster
+- bližnje točke dodamo v 1. cluster
+- enako naredimo za vse novo dodane core points
+- ko zmanjka core points, dodajamo ostale točke, vendar ne dodamo njihovih bližnjih točk
+- ko porabimo vse bližnje točke, ustvarimo 2. cluster na neopredeljenem core pointu
+- ponavljamo...
+
 # Razvrscanje besedil
 
 ## Elementi predstavitve besedilnih dokumentov
@@ -259,9 +271,9 @@ $$ \theta_i \leftarrow \theta_i - \frac{\alpha}{m} \sum_{j=1}^{m} (h_{\theta} (x
 
 #### Regresijska
 
-$$ \text{RMSE} = \sqrt{\frac{{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}}{n}} $$
+$$ \text{RMSE} = \sqrt{\frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{n}} $$
 
-$$ R^2 = 1 - \frac{{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}}{{\sum_{i=1}^{n} (y_i - \bar{y})^2}} $$
+$$ R^2 = 1 - \frac{ \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{ \sum_{i=1}^{n} (y_i - \bar{y})^2} $$
 
 
 #### Klasifikacijska
@@ -622,7 +634,7 @@ $$ \sigma(X)=|\{t_i|X\subseteq t_i, t_i\in {\mathcal T}\}| $$
 
 Potem lahko izracunamo delez podprtih transakcij:
 
-$$ \sigma(X)=|\{t_i|X\subseteq t_i, t_i\in {\mathcal T}\}| $$
+$$ s(X)=\frac{\sigma(X)}{|\mathcal T|}=\frac{\sigma(X)}{N}$$
 
 zanima nas: 
 
@@ -670,4 +682,8 @@ Kako pa zgleda algoritem? Ja najprej gremo skozi algoritem apriori, dobimo mnozi
 Naslednji korak je oceniti zaupanje, zacnemo iz najvecjih mnozic:
 
 ![zaupanje](./img/zaupanje.png)
+
+Včasih hočemo vedeti, kako bolj pogosto se pojavi $X$ z $Y$ v primerjavi z samo $X$ brez $Y$. Tej meri pravimo lift.
+
+$$ lift(x) = \dfrac{c(X \rightarrow Y)}{s(Y)} $$
 
